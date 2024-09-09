@@ -16,7 +16,11 @@ https://github.com/RiverCastle/CICD-practice/blob/main/.github/workflows/CICD.ym
 
 ![img.png](images-for-readme/환경변수등록.png)
 
-*주의 : workflow 파일 내의 환경변수명과 일치해야 합니다.
+* workflow 파일 내의 환경변수명과 일치해야 합니다.
+* REMOTE_SERVER는 서버의 퍼블릭 IP입니다.
+* application.yml 파일의 경우, 반드시 base 64로 endcode 해야합니다.
+* https://www.base64encode.org/
+
 
 ---
 
