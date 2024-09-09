@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  BuildAndTransfer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -38,21 +38,6 @@ jobs:
           pwd
           ls build/libs/
 
-      - name: Upload JAR file
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-app
-          path: build/libs/*.jar
-
-  transfer:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download JAR file
-        uses: actions/download-artifact@v2
-        with:
-          name: my-app
-
       - name: Add EC2 Host Key
         env:
           host: ${{ secrets.REMOTE_SERVER }}
@@ -72,7 +57,7 @@ jobs:
           echo "${{ secrets.PEM_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           ssh-keygen -R $host
-          scp -o StrictHostKeyChecking=no -i private_key.pem /my-app/*.jar $username@$host:/home/ubuntu/app/
+          scp -o StrictHostKeyChecking=no -i private_key.pem build/libs//*.jar $username@$host:/home/ubuntu/app/
 
       - name: 원격 서버에서 빌드 결과물 실행
         env:
