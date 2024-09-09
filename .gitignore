@@ -116,7 +116,7 @@ hs_err_pid*
 replay_pid*
 
 *.properties
-*.yml
+src/main/resources/*.yml
 
 ### Gradle ###
 .gradle
