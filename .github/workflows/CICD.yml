@@ -44,8 +44,11 @@ jobs:
       - name: Add EC2 Host Key
         env:
           host: ${{ secrets.REMOTE_SERVER }}
+          PEM_KEY: ${{ secrets.PEM_KEY}}
         run: |
           mkdir -p ~/.ssh
+          echo "$PEM_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $host >> ~/.ssh/known_hosts  
 
       # SCP로 서버로 전송
@@ -59,8 +62,9 @@ jobs:
           pwd
           echo "${{ secrets.PEM_KEY }}" > private_key.pem
           chmod 600 private_key.pem
+          scp -i private_key.pem build/libs/*.jar $username@$host:/home/ubuntu/app/
           ssh-keygen -R $host
-          scp -o StrictHostKeyChecking=no -i private_key.pem build/libs//*.jar $username@$host:/home/ubuntu/app/
+
 
       - name: 원격 서버에서 빌드 결과물 실행
         env:
