@@ -34,7 +34,9 @@ jobs:
           arguments: clean build -x test
 
       - name: List build output
-        run: ls build/libs/
+        run: |
+          pwd
+          ls build/libs/
 
   transfer:
     runs-on: ubuntu-latest
