@@ -35,6 +35,7 @@ jobs:
 
   transfer:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       # SCP로 서버로 전송
       - name: SCP transfer
