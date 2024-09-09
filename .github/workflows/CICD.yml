@@ -63,8 +63,6 @@ jobs:
           echo "${{ secrets.PEM_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           scp -i private_key.pem build/libs/*.jar $username@$host:/home/ubuntu/app/
-          ssh-keygen -R $host
-
 
       - name: 원격 서버에서 빌드 결과물 실행
         env:
@@ -90,3 +88,5 @@ jobs:
               echo 'JAR 파일이 없습니다.'
             fi
           "
+          echo 'key를 제거합니다.'
+          ssh-keygen -R $host
