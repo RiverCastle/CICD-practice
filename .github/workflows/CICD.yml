@@ -75,14 +75,14 @@ jobs:
           chmod 600 private_key.pem
           
           ssh -i private_key.pem "$username@$host" "
-            JAR_FILE=/home/ubuntu/app/*.jar &&
+            JAR_FILE=\$(find /home/ubuntu/app -name '*.jar' | head -n 1) &&
             if lsof -i :8080; then
               echo '8080 포트에 실행 중인 프로세스가 있습니다. 종료합니다.'
               kill -9 \$(lsof -t -i :8080)
             else
               echo '8080 포트에 실행 중인 프로세스가 없습니다. 바로 실행합니다.'
             fi &&
-            if [ -n \"\$(find /home/ubuntu/app -name '*.jar' | head -n 1)\" ]; then
+            if [ -n \"\$JAR_FILE\" ]; then
              nohup java -jar \"\$JAR_FILE\" > output.log 2>&1 &
             else
               echo 'JAR 파일이 없습니다.'
