@@ -1,0 +1,66 @@
+name: CICD
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:  # 수동 트리거를 위한 추가
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set yml
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml  # 암호화된 yml 내용을 복호화하여 생성
+          find src
+
+      - name: gradlew 권한 수정
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle (Test 제외)
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: clean build -x test
+
+  transfer:
+    runs-on: ubuntu-latest
+    steps:
+      # SCP로 서버로 전송
+      - name: SCP transfer
+        uses: appleboy/scp-action@master
+        with:
+          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.REMOTE_SERVER }}
+          key: ${{ secrets.PEM_KEY }}
+          rm: true
+          source: "./build/libs/*.jar"
+          target: ${{ secrets.JAR_FILE_PATH }}
+
+
+      - name: 원격 서버에서 빌드 결과물 실행
+        env:
+          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.REMOTE_SERVER }}
+          key: ${{ secrets.PEM_KEY }}
+          jar_file_path: ${{ secrets.JAR_FILE_PATH }}
+
+        run: |
+          ssh -i private_key.pem "$SSH_USER@$REMOTE_SERVER" "
+            JAR_FILE=\$(find $JAR_FILE_PATH -name '*.jar' | head -n 1) &&
+            if [ -n \"\$JAR_FILE\" ]; then
+              nohup java -jar \"\$JAR_FILE\" > output.log 2>&1 &
+            else
+              echo 'No JAR file found!'
+            fi
+          "
