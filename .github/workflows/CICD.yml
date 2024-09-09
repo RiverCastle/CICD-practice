@@ -40,6 +40,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Add EC2 Host Key
+        env:
+          host: ${{ secrets.REMOTE_SERVER }}
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H $host >> ~/.ssh/known_hosts  
+
       # SCP로 서버로 전송
       - name: SCP transfer
         env:
@@ -50,7 +57,8 @@ jobs:
         run: |
           echo "${{ secrets.PEM_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          scp -i private_key.pem /build/libs/*.jar $username@$host:/home/ubuntu/app/
+          ssh-keygen -R $host
+          scp -o StrictHostKeyChecking=no -i private_key.pem /build/libs/*.jar $username@$host:/home/ubuntu/app/
 
       - name: 원격 서버에서 빌드 결과물 실행
         env:
