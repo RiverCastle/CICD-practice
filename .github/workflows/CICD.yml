@@ -48,7 +48,7 @@ jobs:
           host: ${{ secrets.REMOTE_SERVER }}
           key: ${{ secrets.PEM_KEY }}
           rm: true
-          source: "./build/libs/*.jar"
+          source: "/build/libs/*.jar"
           target: ${{ secrets.JAR_FILE_PATH }}
 
 
