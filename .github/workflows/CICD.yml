@@ -1,6 +1,9 @@
 name: CICD
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:  # 수동 트리거를 위한 추가
