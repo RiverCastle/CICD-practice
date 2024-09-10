@@ -20,7 +20,13 @@ https://github.com/RiverCastle/CICD-practice/blob/main/.github/workflows/CICD.ym
 * REMOTE_SERVER는 서버의 퍼블릭 IP입니다.
 * application.yml 파일의 경우, 반드시 base 64로 endcode 해야합니다.
 * https://www.base64encode.org/
+* application.yml 파일이 없을 경우, 에러가 발생할 수 있으니 아래의 내용을 base64에 인코딩하여 사용하면 됩니다.
 
+````
+spring:
+  application:
+    name: CICD-TEST-PROJECT
+````
 
 ---
 
@@ -108,9 +114,11 @@ spring:
 
 ````
 
+
 연결결과는 다음과 같이 실패했다. 
 
 ![img.png](images-for-readme/mysql연결실패.png)
+
 
 이유는 password에 특수문자를 포함시킬 때에는 조심해야한다. 연습용이라서 편하게 abcd1234만 했다면 몰랐을 내용인데, 실제라고 생각하고 연습하며 자주 쓰는 특수문자인 !를 포함시켰다가 password에 특수문자를 포함시킬 때는 조심해야한다는 사실을 알게 되었다. 아래의 정리내용은 꼭 위와 같은 상황을 만났을 때 다시 보도록 한다.
 
