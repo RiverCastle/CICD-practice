@@ -87,5 +87,41 @@ scp -o StrictHostKeyChecking=no -i [pem key file] [target-file] [ec2-user]@[ec2-
 `
 ssh-keygen -R $host
 `
+---
+
+직접 부딪힌 문제를 해결하며 깨달은 주요 포인트 3. MySQL User Password 설정
+
+이전까지는 간단하게 8080 포트로 요청을 보낼 때, 서버가 정상 작동하고 있는지 확인하는 기능만 가진 서버를 띄웠다. 하지만 실제로 배포할 서비스는 DBMS를 사용하여 데이터를 주고받는다. 
+
+때문에, application.yml 파일 등을 사용해 관련된 설정 등을 해야한다. 사실 이 내용은 검색을 하면 쉽게 그 과정을 볼 수 있다. 하지만, 조금 더 실제로 사용할 서비스라고 생각을 하며 쉽게 떠올리기 어려운 문제를 직면했다.
+**바로 MySQL의 Password 설정에 있어서 특수문자의 사용을 조심해야 한다는 것이다.**
+
+먼저, 나의 yml 파일을 보면, (실제로 저 password는 아니었지만,) password에 ! 라는 특수문자를 포함하고 있었다. 
+
+````
+spring:
+    datasource:
+        driver-class-name: [DBMS]
+        url: jdbc:mysql://[MySQL 호스트 서버 퍼블릭 IP]:3306/[DB]
+        username: [사용자명]
+        password: abcd1234!
+
+````
+
+연결결과는 다음과 같이 실패했다. 
+
+![img.png](images-for-readme/mysql연결실패.png)
+
+이유는 password에 특수문자를 포함시킬 때에는 조심해야한다. 연습용이라서 편하게 abcd1234만 했다면 몰랐을 내용인데, 실제라고 생각하고 연습하며 자주 쓰는 특수문자인 !를 포함시켰다가 password에 특수문자를 포함시킬 때는 조심해야한다는 사실을 알게 되었다. 아래의 정리내용은 꼭 위와 같은 상황을 만났을 때 다시 보도록 한다.
+
+password 설정에 그냥 사용해도 되는 특수문자 : _ # $
+
+password 설정에 " "를 사용해야 하는 특수문자 : - = ~ ` ! @ % ^ & * ( ) + | \ { [ ] } : ; ' " < > , . / ?
+
+[출처] [SQL] DB user 패스워드 설정시 사용가능한 특수문자|작성자 뱅이
 
 ---
+
+
+
+
