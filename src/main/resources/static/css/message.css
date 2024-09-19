@@ -1,0 +1,48 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: "Noto Sans KR";
+    font-weight: bold;
+    margin: 10px;
+}
+
+.verse-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.verse-info-container p {
+    margin: 0;
+    font-size: 50px;
+}
+
+.book-title-container {
+    font-size: 28px;
+    font-weight: bold;
+}
+    .button-container {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-arrow, .right-arrow {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    background-color: #333;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.left-arrow {
+    border-right: 20px solid #fff;
+}
+
+.right-arrow {
+    border-left: 20px solid #fff;
+}

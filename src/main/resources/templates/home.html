@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성경 말씀 찾기</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+<h1>성경 말씀 찾기</h1>
+<div>
+    <div id="sorting-buttons">
+        <button id="default-sort">성경 인덱스 순 정렬</button>
+        <button id="korean-sort">한글 사전 순 정렬</button>
+    </div>
+    <h2>성경 선택</h2>
+    <div id="bible-buttons" class="bible-buttons-container">
+        <div id="old-testament" class="bible-buttons-box">
+            <h3>구약</h3>
+        </div>
+        <div id="new-testament" class="bible-buttons-box">
+            <h3>신약</h3>
+        </div>
+    </div>
+</div>
+<div>
+    <h2>장 선택</h2>
+    <div id="chapter-buttons" class="button-group"></div>
+</div>
+<div>
+    <h2>절 선택</h2>
+    <div id="verse-buttons" class="button-group"></div>
+</div>
+<p>URL: <span id="url"></span></p>
+<button id="go-button">Go</button>
+<script src="/js/common/config.js"></script>
+<script src="/js/home/bibleObjects.js"></script>
+<script src="/js/home/bibleButtonGenerateFunction.js"></script>
+<script src="/js/home/chapterButtonFunction.js"></script>
+<script src="/js/home/fetchDataAndOpenWithDataFunction.js"></script>
+<script src="/js/home/homeMain.js"></script>
+<script src="/js/home/verseButtonGenerateFunction.js"></script>
+<script src="/js/home/urlUpdateFunction.js"></script>
+<script src="/js/home/openNewWindowFunction.js"></script>
+<script src="/js/home/basicSortingButtons.js"></script>
+<script src="/js/home/koreanSortingButtons.js"></script>
+<script src="/js/home/koreanIndexCreateFunction.js"></script>
+<script src="/js/home/generateBibleButtonInKoreanIndex.js"></script>
+</body>
+</html>

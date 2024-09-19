@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBibleFinder 모니터링 페이지</title>
+    <link rel="stylesheet" href="/css/monitoring.css">
+</head>
+<body>
+<h1>성경 말씀 요청 모니터링</h1>
+
+<p id="avgResponseTime">전체 평균 응답 시간: <span id="overallAvgTime">0</span> ms</p>
+
+<table id="requestsTable">
+    <thead>
+    <tr>
+        <th>성경</th>
+        <th>장 : 절</th>
+        <th>날짜</th>
+        <th>응답 시간 (ms)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 데이터가 여기에 동적으로 삽입됩니다 -->
+    </tbody>
+</table>
+<script src="/js/common/config.js"></script>
+<script src="/js/monitoring/monitorAvgProcessingTime.js"></script>
+<script src="/js/monitoring/usageLogFetch.js"></script>
+</body>
+</html>
