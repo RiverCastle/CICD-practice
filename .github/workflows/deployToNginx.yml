@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "${{ secrets.PEM_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          scp -i private_key.pem src/main/resources/* $username@$host:/home/ubuntu/quick-bible-finder/views/
+          scp -i private_key.pem -r src/main/resources/* $username@$host:/home/ubuntu/quick-bible-finder/views/
 
       - name: Nginx restart
         env:
