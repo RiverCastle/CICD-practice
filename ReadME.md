@@ -8,11 +8,12 @@ https://github.com/RiverCastle/CICD-practice/blob/main/.github/workflows/CICD.ym
 ---
 
 사용방법:
-1. 위의 링크로 이동하여, 해당 내용을 복사한다.
+1. 위의 리스트 중 필요한 workflow 링크로 이동하여, 해당 내용을 복사한다.
 2. 프로젝트 루트 디렉토리로 이동하여 .github/workflows/로 이동 후, 해당 내용을 붙여넣어 yml 파일을 생성한다.
 3. 서버 인스턴스를 생성한다.
 4. 레포지토리 이동 - Settings 이동 - (Security) Secrets and Variables 의 Actions로 이동한다.
-5. Repository secret 섹션에 비밀 환경변수를 등록한다. 
+5. Repository secret 섹션에 비밀 환경변수(인스턴스 ip, pem key)를 등록한다.
+6. 추가로 필요한 환경변수를 등록한다.
 
 ![img.png](images-for-readme/환경변수등록.png)
 
