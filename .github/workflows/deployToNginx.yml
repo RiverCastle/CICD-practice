@@ -34,7 +34,7 @@ jobs:
         run: |
           echo "${{ secrets.PEM_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          scp -i private_key.pem -r src/main/resources/* $username@$host:$target_path
+          scp -i private_key.pem -r src/main/* $username@$host:$target_path
 
       - name: Nginx restart
         env:
